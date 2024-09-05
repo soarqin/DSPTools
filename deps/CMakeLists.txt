@@ -1,0 +1,5 @@
+add_subdirectory(json)
+add_subdirectory(rapidyaml)
+set(MESSAGE_QUIET ON)
+add_subdirectory(fmt)
+set(MESSAGE_QUIET OFF)
