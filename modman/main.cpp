@@ -10,6 +10,7 @@ public:
         freopen("CONOUT$", "w", stdout);
         freopen("CONOUT$", "w", stderr);
 
+        wxInitAllImageHandlers();
         (new MainWnd)->Show(true);
         return true;
     }

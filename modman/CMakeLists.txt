@@ -2,25 +2,29 @@ project(modman CXX)
 
 # wxWidget options
 set(wxWidgets_PREFIX "" CACHE STRING "wxWidgets ROOT dir")
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(wxWidgets_STATIC_DEFAULT OFF)
-else()
+else ()
     set(wxWidgets_STATIC_DEFAULT ON)
-endif()
+endif ()
 option(wxWidgets_STATIC "wxWidgets link static libaries" ${wxWidgets_STATIC_DEFAULT})
 
 # find wxWidget
-if(wxWidgets_PREFIX)
+if (wxWidgets_PREFIX)
     set(wxWidgets_CONFIG_OPTIONS --prefix=${wxWidgets_PREFIX})
-endif()
+endif ()
 set(wxWidgets_USE_UNICODE ON)
 set(wxWidgets_USE_STATIC ${wxWidgets_STATIC})
 find_package(wxWidgets REQUIRED COMPONENTS core base)
 include(${wxWidgets_USE_FILE})
 
 add_executable(${PROJECT_NAME} WIN32
+    res/modman.rc
+
     main.cpp
     mainwnd.cpp mainwnd.h
+    modlist.cpp modlist.h
+    modinfo.cpp modinfo.h
     version.h
 
     mods/dirs.cpp mods/dirs.h

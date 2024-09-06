@@ -10,22 +10,19 @@
 
 #include "mods/listcfg.h"
 
-#include <wx/wxprec.h>
-#ifndef WX_PRECOMP
+#include "modlist.h"
+
 #include <wx/wx.h>
-#endif
-#include <wx/listctrl.h>
 
 namespace modman {
 
 class MainWnd : public wxFrame {
 public:
     MainWnd();
-    ~MainWnd() override;
 
 private:
     mods::ListCfg listCfg_;
-    wxListBox *list_;
+    ModList *modList_;
 };
 
 }

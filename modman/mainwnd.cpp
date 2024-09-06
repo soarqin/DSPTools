@@ -14,7 +14,7 @@
 namespace modman {
 
 MainWnd::MainWnd() : wxFrame(nullptr, wxID_ANY, wxT("Dyson Sphere Program Mod Manager " VERSION_STR),
-                             wxDefaultPosition, wxSize(800, 450)) {
+                             wxDefaultPosition, wxSize(500, 800)) {
     mods::dirs.Init();
     listCfg_.init(L"Default");
     listCfg_.save();
@@ -27,15 +27,14 @@ MainWnd::MainWnd() : wxFrame(nullptr, wxID_ANY, wxT("Dyson Sphere Program Mod Ma
     wxWindow::SetFont(font);
     auto *mainSizer = new wxBoxSizer(wxVERTICAL);
     SetSizer(mainSizer);
-    list_ = new wxListBox(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, nullptr, wxLB_SINGLE);
-    mainSizer->Add(list_, 1, wxEXPAND | wxALL, 5);
+    modList_ = new ModList(this, wxID_ANY);
+    mainSizer->Add(modList_, 1, wxEXPAND | wxALL, 0);
     auto entryCount = listCfg_.entryCount();
     for (int i = 0; i < entryCount; ++i) {
         const auto &entry = listCfg_.entry(i);
-        list_->Append(entry.showName());
+        modList_->addMod(entry);
     }
+    modList_->FitInside();
 }
-
-MainWnd::~MainWnd() = default;
 
 }

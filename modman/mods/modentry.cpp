@@ -7,8 +7,10 @@
  */
 
 #include "modentry.h"
+#include "dirs.h"
 
 #include <fmt/format.h>
+#include <fmt/xchar.h>
 
 namespace modman::mods {
 
