@@ -22,7 +22,6 @@ MainWnd::MainWnd() : wxFrame(nullptr, wxID_ANY, wxT("Dyson Sphere Program Mod Ma
     wxToolTip::Enable(true);
     wxToolTip::SetAutoPop(500);
     Centre();
-    wxWindow::SetBackgroundColour(wxColour(243, 243, 243));
     wxFont font(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MEDIUM, false, "Segoe UI");
     wxWindow::SetFont(font);
     auto *mainSizer = new wxBoxSizer(wxVERTICAL);
