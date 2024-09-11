@@ -16,11 +16,18 @@ Dirs dirs;
 
 void Dirs::Init() {
     wxStandardPaths &stdpaths = wxStandardPaths::Get();
-    baseDir_ = stdpaths.GetUserConfigDir().Append(L"\\r2modmanPlus-local\\DysonSphereProgram\\profiles\\");
+    baseDir_ = wxString::Format(R"(%s\r2modmanPlus-local\DysonSphereProgram)", stdpaths.GetUserConfigDir());
 }
 
-std::wstring Dirs::GetProfileDir(const std::wstring &profile) const {
-    return baseDir_ + profile + L'\\';
+wxString Dirs::GetProfileDir(const std::string &profile) const {
+    if (profile.empty()) {
+        return wxString::Format(R"(%s\profiles\)", baseDir_);
+    }
+    return wxString::Format(R"(%s\profiles\%s\)", baseDir_, wxString::FromUTF8(profile));
+}
+
+wxString Dirs::GetCachePath(const std::string &name, const int versionNumber[3], const std::string &filename) const {
+    return wxString::Format(R"(%s\cache\%s\%d.%d.%d\%s)", baseDir_, wxString::FromUTF8(name), versionNumber[0], versionNumber[1], versionNumber[2], wxString::FromUTF8(filename));
 }
 
 }

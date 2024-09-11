@@ -41,7 +41,7 @@ void ModList::updateMod(int index) {
     }
 
     auto *modInfo = modList_[index];
-    modInfo->update();
+    modInfo->updateEntry();
 }
 
 int ModList::findMod(const std::string &name) {

@@ -12,7 +12,7 @@ public:
         freopen("CONOUT$", "w", stderr);
 #endif
 
-        this->MSWEnableDarkMode(wxApp::DarkMode_Always);
+        MSWEnableDarkMode(wxApp::DarkMode_Always);
         wxInitAllImageHandlers();
         (new MainWnd)->Show(true);
         return true;

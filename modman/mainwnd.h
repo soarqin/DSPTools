@@ -13,6 +13,7 @@
 #include "modlist.h"
 
 #include <wx/wx.h>
+#include <memory>
 
 namespace modman {
 
@@ -21,8 +22,11 @@ public:
     MainWnd();
 
 private:
-    mods::ListCfg listCfg_;
-    ModList *modList_;
+    void onProfileChanged(const std::string &profile);
+
+private:
+    std::shared_ptr<mods::ListCfg> listCfg_;
+    ModList *modList_ = nullptr;
 };
 
 }

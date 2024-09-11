@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include <wx/string.h>
 #include <string>
 
 namespace modman::mods {
@@ -15,10 +16,11 @@ namespace modman::mods {
 class Dirs {
 public:
     void Init();
-    [[nodiscard]] std::wstring GetProfileDir(const std::wstring &profile) const;
+    [[nodiscard]] wxString GetProfileDir(const std::string &profile = "") const;
+    [[nodiscard]] wxString GetCachePath(const std::string &name, const int versionNumber[3], const std::string &filename) const;
 
 private:
-    std::wstring baseDir_;
+    wxString baseDir_;
 };
 
 extern Dirs dirs;

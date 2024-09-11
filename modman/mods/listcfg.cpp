@@ -13,6 +13,7 @@
 #include <intrin.h>
 #define C4CORE_SINGLE_HDR_DEFINE_NOW
 #include <c4core.hpp>
+#define RYML_USE_ASSERT 1
 #define RYML_SINGLE_HDR_DEFINE_NOW
 #define RYML_DEFAULT_CALLBACK_USES_EXCEPTIONS 1
 #include <ryml.hpp>
@@ -22,8 +23,8 @@
 
 namespace modman::mods {
 
-static std::string getFileContent(const std::wstring &path) {
-    std::filesystem::path p(path);
+static std::string getFileContent(const wxString &path) {
+    std::filesystem::path p(path.ToStdWstring());
     std::ifstream ifs(p);
     if (!ifs) {
         return {};
@@ -31,11 +32,13 @@ static std::string getFileContent(const std::wstring &path) {
     return std::string {std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>()};
 }
 
-bool ListCfg::init(const std::wstring &profile) {
+bool ListCfg::load(const std::string &profile) {
     profile_ = profile;
-    std::string content = getFileContent(dirs.GetProfileDir(profile) + L"mods_alt.yml");
+    entries_.clear();
+
+    auto content = getFileContent(dirs.GetProfileDir(profile) + "mods_alt.yml");
     if (content.empty()) {
-        content = getFileContent(dirs.GetProfileDir(profile) + L"mods.yml");
+        content = getFileContent(dirs.GetProfileDir(profile) + "mods.yml");
         if (content.empty()) return false;
     }
     auto tree = ryml::parse_in_arena(content.c_str());
@@ -103,7 +106,7 @@ bool ListCfg::save() {
         node["icon"] << entry.icon;
         node["tags"] << entry.tags;
     }
-    std::filesystem::path p(dirs.GetProfileDir(profile_) + L"mods_alt.yml");
+    std::filesystem::path p((dirs.GetProfileDir(profile_) + "mods_alt.yml").ToStdWstring());
     std::ofstream ofs(p);
     if (!ofs) return false;
     ofs << tree;

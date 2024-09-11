@@ -16,16 +16,16 @@ namespace modman::mods {
 
 class ListCfg {
 public:
-    bool init(const std::wstring &profile);
+    bool load(const std::string &profile);
     bool save();
 
-    [[nodiscard]] const std::wstring &profile() const { return profile_; }
+    [[nodiscard]] const std::string &profile() const { return profile_; }
     [[nodiscard]] int entryCount() const { return int(entries_.size()); }
     [[nodiscard]] const ModEntry &entry(int index) const { return entries_[index]; }
     [[nodiscard]] ModEntry &entry(int index) { return entries_[index]; }
 
 private:
-    std::wstring profile_;
+    std::string profile_;
     std::vector<ModEntry> entries_;
 };
 
