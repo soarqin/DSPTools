@@ -41,6 +41,8 @@ MainWnd::MainWnd() : wxFrame(nullptr, wxID_ANY, wxT("Dyson Sphere Program Mod Ma
 
 void MainWnd::onProfileChanged(const std::string &profile) {
     listCfg_ = modman::mods::Profiles::loadProfile(profile);
+    modList_->Show(false);
+    Refresh();
     modList_->clearMods();
     auto entryCount = listCfg_->entryCount();
     for (int i = 0; i < entryCount; ++i) {
@@ -48,6 +50,7 @@ void MainWnd::onProfileChanged(const std::string &profile) {
         modList_->addMod(entry);
     }
     modList_->FitInside();
+    modList_->Show();
 }
 
 }
